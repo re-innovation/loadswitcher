@@ -1,7 +1,10 @@
 # loadswitcher
 A controllable load switcher for testing.
+
 This was developed for adding/removing loads to a system for long term on/off testing.
-It uses a 4 way relay control unit, Arduino Uno and Velleman VMA203 LCD and keypad shield
+
+It uses a Velleman VMA400 4 way relay control unit, Arduino Uno and Velleman VMA203 LCD and keypad shield.
+
 It is designed to have 4 seperate 5 or 12V loads attached (up to 10A)
 It will then switch them on and off at different rates
 The on and off times can be adjusted via the keypad - in seconds.
@@ -14,5 +17,11 @@ If the on or off time is set to zero then the relay will not switch at all (it i
 
 Datasheet for Velleman LCD and keypad shield
 https://www.velleman.eu/downloads/29/vma203_a4v03.pdf
+
+Datasheet for the Vellemand 4 relay module:
+https://www.velleman.eu/products/view/?id=435558&country=us&lang=en
+
+A screw shiled was used to add wires to relay module:
+https://cpc.farnell.com/seeed-studio/103030006/screw-shield-for-arduino/dp/SC14533
 
 
