@@ -14,10 +14,6 @@
 // Datasheet for Velleman LCD and keypad shield
 // https://www.velleman.eu/downloads/29/vma203_a4v03.pdf
 
-// Libraries Needed:
-// Mutila
-// https://github.com/matthewg42/Mutila
-
 // General configuration
 #include "config.h"
 
@@ -216,7 +212,7 @@ void sortDisplay()
     case 1:
       {
         lcd.setCursor(0, 0);
-        lcd.print(F("Load 1 On Time: ")); // print a simple message
+        lcd.print(F("Load 1 ON Time: ")); // print a simple message
         lcd.setCursor(0, 1);
         lcd.print(load1_ON_time); // print a simple message
         lcd.print("          ");
@@ -225,7 +221,7 @@ void sortDisplay()
     case 2:
       {
         lcd.setCursor(0, 0);
-        lcd.print(F("Load 1 Off Time: ")); // print a simple message
+        lcd.print(F("Load 1 OFF Time: ")); // print a simple message
         lcd.setCursor(0, 1);
         lcd.print(load1_OFF_time); // print a simple message
         lcd.print("          ");
@@ -243,7 +239,7 @@ void sortDisplay()
     case 4:
       {
         lcd.setCursor(0, 0);
-        lcd.print(F("Load 2 Off Time: ")); // print a simple message
+        lcd.print(F("Load 2 OFF Time: ")); // print a simple message
         lcd.setCursor(0, 1);
         lcd.print(load2_OFF_time); // print a simple message
         lcd.print("          ");
@@ -261,7 +257,7 @@ void sortDisplay()
     case 6:
       {
         lcd.setCursor(0, 0);
-        lcd.print(F("Load 3 Off Time: ")); // print a simple message
+        lcd.print(F("Load 3 OFF Time: ")); // print a simple message
         lcd.setCursor(0, 1);
         lcd.print(load3_OFF_time); // print a simple message
         lcd.print("          ");
@@ -279,7 +275,7 @@ void sortDisplay()
     case 8:
       {
         lcd.setCursor(0, 0);
-        lcd.print(F("Load 4 Off Time: ")); // print a simple message
+        lcd.print(F("Load 4 OFF Time: ")); // print a simple message
         lcd.setCursor(0, 1);
         lcd.print(load4_OFF_time); // print a simple message
         lcd.print("          ");
@@ -296,48 +292,8 @@ void updateButtons()
         if (button_press_flag == LOW)
         {
           button_press_flag = HIGH;
-          // Here we need to decide to write to eeprom
-          if (display_Mode == 1)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(0, load1_ON_time);
-          }
-          if (display_Mode == 2)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(2, load1_OFF_time);
-          }
-          if (display_Mode == 3)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(4, load2_ON_time);
-          }
-          if (display_Mode == 4)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(6, load2_OFF_time);
-          }
-          if (display_Mode == 5)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(8, load3_ON_time);
-          }
-          if (display_Mode == 6)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(10, load3_OFF_time);
-          }
-          if (display_Mode == 7)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(12, load4_ON_time);
-          }
-          if (display_Mode == 8)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(14, load4_OFF_time);
-          }
-
+          writeToEEPROM();
+          
           display_Mode = display_Mode + 1;
           lcd.clear();
           if (display_Mode >= max_display_Mode)
@@ -353,22 +309,13 @@ void updateButtons()
         {
           button_press_flag = HIGH;
           // Here we need to decide to write to eeprom
-          if (display_Mode == 1)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(0, load1_ON_time);
-          }
-          if (display_Mode == 2)
-          {
-            // Store new timer value to EEPROM
-            EEPROMWriteInt(2, load1_OFF_time);
-          }
+          writeToEEPROM();
           display_Mode = display_Mode - 1;
           lcd.clear();
           if (display_Mode < 0)
           {
-            display_Mode = max_display_Mode;
-          }
+            display_Mode = max_display_Mode-1;
+          }    
         }
         break;
       }
@@ -570,6 +517,51 @@ void sortLoads()
   {
     //In this case load is OFF
     load4_flag = LOW;
+  }
+}
+
+
+void writeToEEPROM()
+{ // Here we need to decide to write to eeprom
+  if (display_Mode == 1)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(0, load1_ON_time);
+  }
+  if (display_Mode == 2)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(2, load1_OFF_time);
+  }
+  if (display_Mode == 3)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(4, load2_ON_time);
+  }
+  if (display_Mode == 4)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(6, load2_OFF_time);
+  }
+  if (display_Mode == 5)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(8, load3_ON_time);
+  }
+  if (display_Mode == 6)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(10, load3_OFF_time);
+  }
+  if (display_Mode == 7)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(12, load4_ON_time);
+  }
+  if (display_Mode == 8)
+  {
+    // Store new timer value to EEPROM
+    EEPROMWriteInt(14, load4_OFF_time);
   }
 }
 
